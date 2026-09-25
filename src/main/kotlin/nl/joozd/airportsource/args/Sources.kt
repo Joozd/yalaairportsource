@@ -1,4 +1,5 @@
 package nl.joozd.airportsource.args
 
-class Sources {
+enum class Sources {
+    OUR_AIRPORTS
 }

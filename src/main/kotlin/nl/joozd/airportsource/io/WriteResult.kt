@@ -1,4 +1,3 @@
 package nl.joozd.airportsource.io
 
-class WriteResult {
-}
+data class WriteResult(val sha256: String, val size: Long)

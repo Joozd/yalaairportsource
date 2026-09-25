@@ -9,7 +9,7 @@ import java.time.LocalDate
  *
  * @param downloadURI URI from which the airport CSV data is downloaded.
  */
-class OurAirportsDownloader(downloadURI: URI = URI(OUR_AIRPORTS_URL)) {
+class OurAirportsDownloader(downloadURI: URI) {
     private val downloadURL = downloadURI.toURL()
 
     /**
@@ -28,9 +28,5 @@ class OurAirportsDownloader(downloadURI: URI = URI(OUR_AIRPORTS_URL)) {
                 epochDay
             )
         }
-    }
-
-    companion object {
-        const val OUR_AIRPORTS_URL = "https://ourairports.com/data/airports.csv"
     }
 }

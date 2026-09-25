@@ -31,7 +31,7 @@ kotlin {
     jvmToolchain(21)
 
     compilerOptions {
-        freeCompilerArgs.add("-XXLanguage:+FullValueClasses")
+        // freeCompilerArgs.add("-XXLanguage:+FullValueClasses")
     }
 }
 

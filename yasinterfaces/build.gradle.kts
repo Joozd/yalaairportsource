@@ -45,7 +45,10 @@ dokka {
  * Packages the generated Dokka HTML documentation as the Maven
  * javadoc artifact.
  */
-val dokkaHtmlJar by tasks.registering(Jar::class) {
+val dokkaHtmlJar = tasks.register<Jar>("dokkaHtmlJar") {
+    group = "documentation"
+    description = "Packages the generated Dokka HTML documentation as a Javadoc JAR."
+
     dependsOn("dokkaGeneratePublicationHtml")
     archiveClassifier.set("javadoc")
     from(layout.buildDirectory.dir("docs"))
