@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "nl.joozd"
-version = "1.02"
+version = "1.03"
 
 repositories {
     mavenCentral()
