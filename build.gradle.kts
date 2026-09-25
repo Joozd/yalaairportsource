@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "nl.joozd"
-version = "1.01"
+version = "1.02"
 
 repositories {
     mavenCentral()
@@ -17,6 +17,7 @@ dependencies {
     testImplementation(kotlin("test"))
 
     implementation(project(":yasinterfaces"))
+    implementation(project(":yasio"))
 
     implementation("org.apache.commons:commons-csv:1.14.1")
 

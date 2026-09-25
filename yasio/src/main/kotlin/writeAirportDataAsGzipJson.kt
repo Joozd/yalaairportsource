@@ -1,5 +1,3 @@
-package nl.joozd.airportsource.io
-
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
@@ -17,7 +15,7 @@ import kotlin.io.path.outputStream
  * @return Metadata describing the compressed file that was written.
  */
 @ExperimentalSerializationApi
-internal fun writeAirportDataAsGzipJson(
+fun writeAirportDataAsGzipJson(
     airportData: AirportData,
     target: Path,
 ): WriteResult {

@@ -1,11 +1,12 @@
 package nl.joozd.airportsource.ourairports
 
+import getAirportDataFromGzipJson
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import nl.joozd.airportsource.Processor
 import nl.joozd.airportsource.args.Args
-import nl.joozd.airportsource.io.getSerializableFromGzipJson
-import nl.joozd.airportsource.io.writeAirportDataAsGzipJson
+import writeAirportDataAsGzipJson
 import nl.joozd.airportsource.structuring.getDelta
 import nl.joozd.airportsource.yasinterfaces.*
 import org.slf4j.LoggerFactory
@@ -133,6 +134,11 @@ class OurAirportsProcessor : Processor {
         val current = getCurrentFullAirportData(args, currentManifest)
         val new = getNewAirportData()
 
+        if (current?.version == new.version){
+            logger.info("No new data found on this run, current version remains ${new.version} (${LocalDate.fromEpochDays(new.version)})")
+            return currentManifest
+        } // no change, noop
+
         logger.info(
             "Processing airport data update from version {} to {}",
             current?.version,
@@ -247,7 +253,7 @@ class OurAirportsProcessor : Processor {
         )
 
         val path = args.outputDir.resolve(currentAirportDataFile.filename)
-        val deserialized = getSerializableFromGzipJson<AirportData>(path)
+        val deserialized = getAirportDataFromGzipJson(path, sha256 = currentAirportDataFile.sha256)
 
         check(deserialized is FullAirportData) {
             "Deserialized wrong type of data; expected FullAirportData but got " +
@@ -261,8 +267,6 @@ class OurAirportsProcessor : Processor {
      * Downloads and parses the latest airport data from OurAirports.
      */
     private fun getNewAirportData(): FullAirportData {
-        logger.info("Downloading latest airport data from OurAirports")
-
         val uri = URI(OUR_AIRPORTS_AIRPORTS_CSV_DOWNLOAD_LOCATION)
         val downloader = OurAirportsDownloader(uri)
         val airportData = downloader.getFullAirportData()
