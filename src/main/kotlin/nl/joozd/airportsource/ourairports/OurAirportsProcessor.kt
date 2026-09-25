@@ -5,7 +5,7 @@ import kotlinx.serialization.json.Json
 import nl.joozd.airportsource.Processor
 import nl.joozd.airportsource.args.Args
 import nl.joozd.airportsource.io.getSerializableFromGzipJson
-import nl.joozd.airportsource.io.writeSerializableAsGzipJson
+import nl.joozd.airportsource.io.writeAirportDataAsGzipJson
 import nl.joozd.airportsource.structuring.getDelta
 import nl.joozd.airportsource.yasinterfaces.*
 import org.slf4j.LoggerFactory
@@ -139,6 +139,7 @@ class OurAirportsProcessor : Processor {
             new.version
         )
 
+        //getDelta returns null if run multiple times on same full version, so no duplicates
         val delta = current?.let { getDelta(it, new) }
 
         val newAirportDataFile = new.let {
@@ -148,7 +149,7 @@ class OurAirportsProcessor : Processor {
             logger.info("Writing full airport data to {}", newFullFileName)
 
             @OptIn(ExperimentalSerializationApi::class)
-            val writeResult = writeSerializableAsGzipJson(new, newFullFilePath)
+            val writeResult = writeAirportDataAsGzipJson(new, newFullFilePath)
 
             logger.info(
                 "Wrote full airport data; version={}, size={} bytes",
@@ -181,7 +182,7 @@ class OurAirportsProcessor : Processor {
             )
 
             @OptIn(ExperimentalSerializationApi::class)
-            val writeResult = writeSerializableAsGzipJson(d, newDeltaFilePath)
+            val writeResult = writeAirportDataAsGzipJson(d, newDeltaFilePath)
 
             logger.info(
                 "Wrote airport delta; {} -> {}, size={} bytes",
