@@ -1,0 +1,38 @@
+<configuration>
+    <property name="LOG_DIR" value="${LOG_DIR:-logs}"/>
+
+    <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/airport-updater.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/airport-updater.%i.log.gz</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>%date %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="MISSING_AIRPORTS" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/missing-airports.log</file>
+        <append>true</append>
+
+        <encoder>
+            <pattern>%date %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="missingAirports" level="WARN">
+        <appender-ref ref="MISSING_AIRPORTS"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="APPLICATION"/>
+    </root>
+</configuration>
