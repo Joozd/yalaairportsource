@@ -18,7 +18,8 @@ private val logger = LoggerFactory.getLogger("missingAirports")
  * @param newData the new airport dataset.
  * @return a delta from [oldData] to [newData] containing all added or changed airports.
  */
-internal fun getDelta(oldData: AirportData, newData: AirportData): AirportDataDelta {
+internal fun getDelta(oldData: AirportData, newData: AirportData): AirportDataDelta? {
+    if (oldData.version == newData.version) return null
     val oldMap = oldData.airports.associateBy { it.id }
     val changedAirports = newData.airports.filter {
         val oldAirport = oldMap[it.id]
