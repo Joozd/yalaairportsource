@@ -6,6 +6,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import nl.joozd.airportsource.Processor
 import nl.joozd.airportsource.args.Args
+import nl.joozd.airportsource.logging.logChangedAirports
 import writeAirportDataAsGzipJson
 import nl.joozd.airportsource.structuring.getDelta
 import nl.joozd.airportsource.yasinterfaces.*
@@ -146,7 +147,12 @@ class OurAirportsProcessor : Processor {
         )
 
         //getDelta returns null if run multiple times on same full version, so no duplicates
-        val delta = current?.let { getDelta(it, new) }
+        val delta = current?.let {
+            getDelta(it, new)
+                ?.also{ delta ->
+                    logChangedAirports(delta, current)
+                }
+        }
 
         val newAirportDataFile = new.let {
             val newFullFileName = "full-airport-data-${new.version}$JSON_GZIP_EXTENSION"

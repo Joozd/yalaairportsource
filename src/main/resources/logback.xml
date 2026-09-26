@@ -28,7 +28,20 @@
         </encoder>
     </appender>
 
+    <appender name="CHANGED_AIRPORTS" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/changed-airports.log</file>
+        <append>true</append>
+
+        <encoder>
+            <pattern>%date %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <logger name="missingAirports" level="WARN">
+        <appender-ref ref="MISSING_AIRPORTS"/>
+    </logger>
+
+    <logger name="changedAirports" level="INFO">
         <appender-ref ref="MISSING_AIRPORTS"/>
     </logger>
 
