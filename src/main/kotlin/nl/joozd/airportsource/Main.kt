@@ -3,6 +3,7 @@ package nl.joozd.airportsource
 import nl.joozd.airportsource.args.Args
 import nl.joozd.airportsource.args.buildArgsFromCli
 import org.slf4j.LoggerFactory
+import java.time.LocalDateTime
 import kotlin.io.path.createDirectory
 import kotlin.io.path.exists
 
@@ -13,6 +14,9 @@ private val logger = LoggerFactory.getLogger("AirportSourceMain")
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main(params: Array<String>) {
     try {
+        logger.info("=============================================\n" +
+                    "Running at ${LocalDateTime.now()}\n" +
+                    "=============================================")
         val args = buildArgsFromCli(params)
 
         checkIfDirsExist(args)
