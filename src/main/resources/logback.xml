@@ -42,7 +42,7 @@
     </logger>
 
     <logger name="changedAirports" level="INFO">
-        <appender-ref ref="MISSING_AIRPORTS"/>
+        <appender-ref ref="CHANGED_AIRPORTS"/>
     </logger>
 
     <root level="INFO">

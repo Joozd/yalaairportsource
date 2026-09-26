@@ -14,9 +14,9 @@ private val logger = LoggerFactory.getLogger("AirportSourceMain")
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main(params: Array<String>) {
     try {
-        logger.info("=============================================\n" +
-                    "Running at ${LocalDateTime.now()}\n" +
-                    "=============================================")
+        logger.info("=============================================\n")
+        logger.info("Running at ${LocalDateTime.now()}\n")
+        logger.info("=============================================")
         val args = buildArgsFromCli(params)
 
         checkIfDirsExist(args)
