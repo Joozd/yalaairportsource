@@ -5,3 +5,4 @@ rootProject.name = "yalaairportsource"
 
 include(":yasinterfaces")
 include("yasio")
+include("yasdownloader")

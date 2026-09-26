@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/yasdownloader" />
             <option value="$PROJECT_DIR$/yasinterfaces" />
             <option value="$PROJECT_DIR$/yasio" />
           </set>
