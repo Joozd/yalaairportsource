@@ -226,8 +226,11 @@ class OurAirportsProcessor : Processor {
                 newDeltaFile
             )
         )
+        logger.info("updated manifest: $updatedManifest")
 
-        return updateEarliestDelta(args, updatedManifest)
+        return updateEarliestDelta(args, updatedManifest).also{
+            logger.info("updated manifest w/ earliest delta: $updatedManifest")
+        }
     }
 
     /**
@@ -314,6 +317,14 @@ class OurAirportsProcessor : Processor {
     ): AirportDataManifest {
         val currentDeltas = manifest.files.filterIsInstance<AirportDeltaDataFile>()
 
+        if (args.maxDeltas == 0) {
+            logger.info("Delta retention disabled; clearing earliest delta version")
+            return manifest.copy(earliestDelta = null)
+        }
+
+        if (manifest.earliestDelta == null)
+            return manifest.copy(earliestDelta = manifest.currentVersion)
+
         if (currentDeltas.size <= args.maxDeltas) {
             logger.debug(
                 "Delta retention limit not exceeded: {} of {}",
@@ -323,10 +334,7 @@ class OurAirportsProcessor : Processor {
             return manifest
         }
 
-        if (args.maxDeltas == 0) {
-            logger.info("Delta retention disabled; clearing earliest delta version")
-            return manifest.copy(earliestDelta = null)
-        }
+
 
         val sortedDeltaVersions = currentDeltas
             .map { it.previousVersion }
