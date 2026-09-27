@@ -20,6 +20,13 @@ internal sealed interface ArgumentDescription {
         override val helpText: String = "Displays this help message. Usage: --${name.argName}"
         override val numberOfArguments: Int = 0
     }
+
+    data object MAXDELTAS: ArgumentDescription {
+        override val name: ArgName = CliArgNames.MAXDELTAS
+        override val shortName: String? = null
+        override val helpText: String = "Specifies the maximum number of update delta files. Must be an integer. Usage: --${name.argName} <number_of_items>"
+        override val numberOfArguments: Int = 1
+    }
 }
 
 private fun buildArgument(name: ArgName, iterator: Iterator<String>, argsNeeded: Int): Argument {

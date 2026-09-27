@@ -7,6 +7,7 @@ package nl.joozd.airportsource.args
 internal object CliArgNames {
     val OUTPUT_DIR = ArgName("output-dir")
     val HELP = ArgName("help")
+    val MAXDELTAS = ArgName("maxdeltas")
 }
 
 /**

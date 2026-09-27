@@ -5,6 +5,7 @@ internal fun buildArgsFromCli(args: Array<String>): Args {
         val argsMap = argsToMap(args)
         argsMap[CliArgNames.OUTPUT_DIR]?.let { argument -> outputDir = argument.values.first }
         argsMap[CliArgNames.HELP]?.let { help = true }
+        argsMap[CliArgNames.MAXDELTAS]?.let { argument -> maxDeltas = argument.values.first.toInt() }
     }.build()
 }
 
