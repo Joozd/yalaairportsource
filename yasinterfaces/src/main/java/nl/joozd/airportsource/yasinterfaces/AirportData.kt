@@ -1,3 +1,4 @@
+@file:Suppress("Unused")
 package nl.joozd.airportsource.yasinterfaces
 
 import kotlinx.serialization.SerialName
@@ -19,6 +20,8 @@ sealed interface AirportData{
  *
  * @property airports airports that were added or changed since [previousVersion].
  * @property removedAirportIDs IDs of airports that were removed since [previousVersion].
+ *  Removed airports are not guaranteed to be present. This can happen if deltas are combined,
+ *  and an airport is both created and removed in the same batch.
  * @property version version produced by applying this delta.
  * @property previousVersion version to which this delta applies.
  */
