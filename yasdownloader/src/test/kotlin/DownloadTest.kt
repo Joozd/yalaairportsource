@@ -17,6 +17,5 @@ class DownloadTest {
         val delta = downloader.getUpdatesFromVersion(twoEarlier)
         assert(delta is DownloadResult.Incremental)
         delta as DownloadResult.Incremental
-        println(delta)
     }
 }
